@@ -1,24 +1,26 @@
+from typing import Any, Tuple, Union
+
 def is_required(val) -> bool:
     """Check if val is defined"""
     return val is not None and str(val).strip != ""
 
-def is_integer(val) -> bool:
+def is_integer(val) -> Tuple[bool, Union[int, Any]]:
     """Check if val is an int"""
     try:
+        float(val)
         if val.is_integer():
-            int(val)
-            return True
-        return False
+            return True, int(val)
+        return False, val
     except (ValueError, TypeError):
-        return False
+        return False, val
 
-def is_float(val) -> bool:
+def is_float(val) -> Tuple[bool, Union[float, Any]]:
     """Check if val is a float"""
     try:
-        float(val)
-        return True
+        converted = float(val)
+        return True, converted
     except (ValueError, TypeError):
-        return False
+        return False, val
 
 def is_positive(val) -> bool:
     """Check if val is positive"""
@@ -31,42 +33,15 @@ def is_positive(val) -> bool:
 def is_valid_transaction_id(val: str) -> bool:
     """Check a valid transaction_id"""
     if not val.startswith("TRX"):
-        raise "A valid transaction_id must start with TRX"
+        return False
     if not val[3:].isdigit():
-        raise "A valid transaction_id must end with digit"
+        return False
     return True
 
 def is_valid_user_id(val: str) -> bool:
     """Check a valid user_id"""
     if not val.startswith("USR"):
-        raise "A valid user_id must start with USR"
+        return False
     if not val[3:].isdigit():
-        raise "A valid user_id must end with digit"
-"""Membuat parse untuk integer dan float seperti di bawah"""
-
-"""from typing import Any, Tuple, Union
-
-def parse_integer(val: Any) -> Tuple[bool, Union[int, Any]]:
-    try:
-        # Menangani tipe float terlebih dahulu
-        if isinstance(val, float):
-            if val.is_integer():
-                return True, int(val)
-            return False, val
-        
-        # Menangani string atau int langsung
-        parsed = float(val)
-        if parsed.is_integer():
-            return True, int(parsed)
-        return False, val
-    except (ValueError, TypeError):
-        return False, val
-
-
-def parse_float(val: Any) -> Tuple[bool, Union[float, Any]]:
-    try:
-        # Konversi int, float, atau string angka ke float
-        converted = float(val)
-        return True, converted
-    except (ValueError, TypeError):
-        return False, val"""
+        return False
+    return True
