@@ -28,6 +28,20 @@ def is_positive(val) -> bool:
         return False
 
 """Buat fungsi validasi utnuk transaction_id, user_id, dan status (enum)"""
+def is_valid_transaction_id(val: str) -> bool:
+    """Check a valid transaction_id"""
+    if not val.startswith("TRX"):
+        raise "A valid transaction_id must start with TRX"
+    if not val[3:].isdigit():
+        raise "A valid transaction_id must end with digit"
+    return True
+
+def is_valid_user_id(val: str) -> bool:
+    """Check a valid user_id"""
+    if not val.startswith("USR"):
+        raise "A valid user_id must start with USR"
+    if not val[3:].isdigit():
+        raise "A valid user_id must end with digit"
 """Membuat parse untuk integer dan float seperti di bawah"""
 
 """from typing import Any, Tuple, Union
