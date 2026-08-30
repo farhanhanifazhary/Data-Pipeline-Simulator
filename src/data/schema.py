@@ -1,7 +1,10 @@
-from typing import Any, Callable, Dict, List, Tuple
-from ..function.validation_rules import *
+import sys
+from pathlib import Path
 
-SCHEMA: Dict[str, List[Tuple[str, Callable[[Any], bool]]]] = {
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+from function.validation_rules import *
+
+SCHEMA = {
     "transaction_id": [
         ("Missing transaction_id", is_required),
         ("Invalid transaction_id", is_valid_transaction_id)

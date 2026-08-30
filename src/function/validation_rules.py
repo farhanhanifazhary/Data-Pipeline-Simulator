@@ -1,28 +1,23 @@
-from typing import Any, Tuple, Union
-
-def is_required(val: Any) -> bool:
+def is_required(val) -> bool:
     """Check if val is defined"""
     return val is not None and str(val).strip != ""
 
-def is_integer(val: Any) -> Tuple[bool, Union[int, Any]]:
-    """Check if val is an int"""
+def is_integer(val) -> bool:
     try:
-        float(val)
-        if val.is_integer():
-            return True, int(val)
-        return False, val
+        int(val)
+        return True
     except (ValueError, TypeError):
-        return False, val
+        return False
 
-def is_float(val: Any) -> Tuple[bool, Union[float, Any]]:
+def is_float(val) -> bool:
     """Check if val is a float"""
     try:
-        converted = float(val)
-        return True, converted
+        float(val)
+        return True
     except (ValueError, TypeError):
-        return False, val
+        return False
 
-def is_positive(val: Any) -> bool:
+def is_positive(val) -> bool:
     """Check if val is positive"""
     try:
         return float(val) > 0
@@ -56,8 +51,9 @@ def drop_duplicates(data: list) -> list:
             seen.add(item_set)
             hasil.append(item)
 
-def is_valid_status(val, list_status) -> bool:
+def is_valid_status(val) -> bool:
     """check if status valid"""
+    list_status = ["completed", "pending", "cancelled"]
     if val not in list_status:
         return False
     return True
