@@ -3,11 +3,7 @@ def is_required(val) -> bool:
     return val is not None and str(val).strip != ""
 
 def is_integer(val) -> bool:
-    try:
-        int(val)
-        return True
-    except (ValueError, TypeError):
-        return False
+    return isinstance(val, int) and not isinstance(val, bool)
 
 def is_float(val) -> bool:
     """Check if val is a float"""
